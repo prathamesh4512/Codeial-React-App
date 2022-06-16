@@ -1,5 +1,6 @@
 import styles from '../styles/home.module.css';
 import PropTypes from 'prop-types';
+import { Comments } from '../components';
 
 const Home =({posts})=>{
     return(
@@ -41,7 +42,7 @@ const Home =({posts})=>{
                   </div>
         
                   <div className={styles.postCommentsList}>
-                    <div className={styles.postCommentsItem}>
+                    {/* <div className={styles.postCommentsItem}>
                       <div className={styles.postCommentHeader}>
                         <span className={styles.postCommentAuthor}>Bill</span>
                         <span className={styles.postCommentTime}>a minute ago</span>
@@ -49,7 +50,8 @@ const Home =({posts})=>{
                       </div>
         
                       <div className={styles.postCommentContent}>Random comment</div>
-                    </div>
+                    </div> */}
+                    <Comments/>
                   </div>
                 </div>
               </div>
