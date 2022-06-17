@@ -1,6 +1,6 @@
 export * from "./App";
 export * from "./Loader";
-export * from "./Comments";
+export * from "./Comment";
 export * from "./Navbar";
 
 // export {App}

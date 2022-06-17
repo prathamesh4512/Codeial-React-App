@@ -1,36 +1,38 @@
-import styles from "../styles/navbar.module.css"
+import { Link } from 'react-router-dom';
 
-export const Navbar =()=>{
-    return (
+import styles from '../styles/navbar.module.css';
+
+export const Navbar = () => {
+  return (
     <div className={styles.nav}>
       <div className={styles.leftDiv}>
-        <a href="/">
+        <Link to="/">
           <img
             alt=""
             src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
           />
-        </a>
+        </Link>
       </div>
 
       <div className={styles.rightNav}>
         <div className={styles.user}>
-          <a href="/">
+          <Link to="/">
             <img
               src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
               alt=""
               className={styles.userDp}
             />
-          </a>
+          </Link>
           <span>Aakash</span>
         </div>
 
         <div className={styles.navLinks}>
           <ul>
             <li>
-              <a href="/">Log in</a>
+              <Link to="/login">Log in</Link>
             </li>
             <li>
-              <a href="/">Log out</a>
+              <Link to="/">Log out</Link>
             </li>
             <li>
               <a href="/">Register</a>
@@ -39,5 +41,5 @@ export const Navbar =()=>{
         </div>
       </div>
     </div>
-    );
+  );
 };
