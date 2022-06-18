@@ -1,4 +1,4 @@
-import { API_URLS, LOCALSTORAGE_TOKEN_KEY } from '../utils';
+import { API_URLS, LOCALSTORAGE_TOKEN_KEY, getFormBody } from '../utils';
 
 // for some pages we will be getting body like login page, signup/sign page
 // for some page we wont be, so body will be null
@@ -8,10 +8,9 @@ const customFetch = async (url, { body, ...customConfig }) => {
   const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
   // console.log(token);
 
-  //In header we will be sending & accepting data in json
+  //In header we will be sending & accepting data in form urlencoded
   const headers = {
-    'content-type': 'application/json',
-    Accept: 'application/json',
+    'content-type': 'application/x-www-form-urlencoded',
   };
 
   // putting token into header for server to able to authenticate request
@@ -33,7 +32,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   // convert body(js object) to json & add it in config
   // we cant send js object to the api, type of data-transfer is json
   if (body) {
-    config.body = JSON.stringify(body);
+    config.body = getFormBody(body);
   }
 
   try {
