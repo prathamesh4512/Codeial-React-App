@@ -29,7 +29,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
     },
   };
 
-  // convert body(js object) to json & add it in config
+  // encode body & add it in config
   // we cant send js object to the api, type of data-transfer is json
   if (body) {
     config.body = getFormBody(body);
@@ -45,7 +45,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
         success: true,
       };
     }
-    // if data.success is false
+    // if data.success is false, throwing error for catch to handle
     throw new Error(data.message);
   } catch (error) {
     console.error(error);
@@ -66,5 +66,12 @@ export const login = (email, password) => {
   return customFetch(API_URLS.login(), {
     method: 'POST',
     body: { email, password },
+  });
+};
+
+export const signup = (name, email, password, confirm_password) => {
+  return customFetch(API_URLS.signup(), {
+    method: 'POST',
+    body: { email, name, password, confirm_password },
   });
 };

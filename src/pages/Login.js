@@ -2,6 +2,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from '../styles/login.module.css';
 import { useAuth } from '../hooks';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ const Login = () => {
   const [loggingIn, setLoggingIn] = useState(false);
   const auth = useAuth();
   console.log(auth);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -16,7 +18,8 @@ const Login = () => {
     setLoggingIn(true);
     const response = await auth.login(email, password);
     if (response.success) {
-      toast.success('Successfully created!');
+      navigate('/');
+      toast.success('Successfully Logged In');
     } else {
       toast.error('Invalid Password or Email');
     }
