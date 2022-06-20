@@ -1,6 +1,10 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../providers/AuthProvider';
-import { login as userLogin, signup as userSignup } from '../api';
+import {
+  login as userLogin,
+  signup as userSignup,
+  editUser as editUserProfile,
+} from '../api';
 import jwtDecode from 'jwt-decode';
 import {
   getItemFromLocalStorage,
@@ -62,11 +66,27 @@ export const useProvideAuth = () => {
     }
   };
 
+  const editUser = async (id, name, password, confirmPassword) => {
+    const response = await editUserProfile(id, name, password, confirmPassword);
+    if (response.success) {
+      setUser(response.data.user);
+      // console.log(response.data.token);
+      setItemInLocalStorage(
+        LOCALSTORAGE_TOKEN_KEY,
+        response.data.token ? response.data.token : null
+      );
+      return { success: true };
+    } else {
+      return { success: false, message: response.message };
+    }
+  };
+
   return {
     user,
     login,
     logout,
     loading,
     signup,
+    editUser,
   };
 };

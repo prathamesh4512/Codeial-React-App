@@ -2,7 +2,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from '../styles/login.module.css';
 import { useAuth } from '../hooks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -24,6 +24,10 @@ const Login = () => {
       toast.error('Invalid Password or Email');
     }
     setLoggingIn(false);
+  }
+
+  if (auth.user) {
+    return <Navigate to="/" replace></Navigate>;
   }
 
   return (

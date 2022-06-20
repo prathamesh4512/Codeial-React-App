@@ -38,7 +38,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   try {
     const response = await fetch(url, config);
     const data = await response.json();
-
+    console.log(data);
     if (data.success) {
       return {
         data: data.data,
@@ -73,5 +73,13 @@ export const signup = (name, email, password, confirm_password) => {
   return customFetch(API_URLS.signup(), {
     method: 'POST',
     body: { email, name, password, confirm_password },
+  });
+};
+
+export const editUser = (id, name, password, confirm_password) => {
+  // console.log(id, name, password, confirm_password);
+  return customFetch(API_URLS.editUser(), {
+    method: 'POST',
+    body: { id, name, password, confirm_password },
   });
 };

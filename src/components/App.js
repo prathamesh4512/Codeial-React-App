@@ -1,13 +1,23 @@
 // import { useEffect, useState } from 'react';
 // import { getPosts } from '../api';
-import { Home, Login, Signup } from '../pages';
+import { Home, Login, Signup, Settings } from '../pages';
 import { Loader, Navbar } from './';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import { useAuth } from '../hooks';
 
 // const About = () => {
 //   return <h1>About</h1>;
 // };
+
+function PrivateRoute({ children }) {
+  const auth = useAuth();
+  return auth.user ? children : <Navigate to="/login" replace />;
+}
 
 const Page404 = () => {
   return <h1>Page Not Found</h1>;
@@ -44,6 +54,14 @@ export function App() {
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Router>
