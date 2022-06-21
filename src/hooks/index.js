@@ -49,19 +49,28 @@ export const useProvideAuth = () => {
   const login = async (email, password) => {
     // setLoading(true);
     const response = await userLogin(email, password);
-
     if (response.success) {
-      setUser(response.data.user);
+      const user = response.data.user;
       setItemInLocalStorage(
         LOCALSTORAGE_TOKEN_KEY,
         response.data.token ? response.data.token : null
       );
-
+      const settingUserFriends = async () => {
+        const response = await getFriends();
+        // let friends=[];
+        if (response.success) {
+          let friends = response.data.friends;
+          setUser({
+            ...user,
+            friends: friends,
+          });
+        }
+        // setLoading(false);
+      };
       // setLoading(false);
+      settingUserFriends();
       return { success: true };
-    }
-    // setLoading(false);
-    else
+    } else
       return {
         success: false,
         messaage: response.message,
