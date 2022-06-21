@@ -83,3 +83,9 @@ export const editUser = (id, name, password, confirm_password) => {
     body: { id, name, password, confirm_password },
   });
 };
+
+export const getUser = (id) => {
+  return customFetch(API_URLS.userInfo(id), {
+    method: 'GET',
+  });
+};

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../hooks';
 import styles from '../styles/settings.module.css';
 import toast from 'react-hot-toast';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 
 const Settings = () => {
   const auth = useAuth();
@@ -83,21 +83,19 @@ const Settings = () => {
             <input
               type="password"
               value={password}
+              placeholder="Enter Password"
               required
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className={styles.field}>
             <div className={styles.fieldLabel}>Confirm Password</div>
             <input
               type="password"
-              valeu={confirmPassword}
+              value={confirmPassword}
+              placeholder="Confirm Password"
               required
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
         </>

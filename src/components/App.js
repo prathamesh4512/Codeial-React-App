@@ -1,6 +1,6 @@
 // import { useEffect, useState } from 'react';
 // import { getPosts } from '../api';
-import { Home, Login, Signup, Settings } from '../pages';
+import { Home, Login, Signup, Settings, UserProfile } from '../pages';
 import { Loader, Navbar } from './';
 import {
   BrowserRouter as Router,
@@ -59,6 +59,14 @@ export function App() {
             element={
               <PrivateRoute>
                 <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/users/:userId"
+            element={
+              <PrivateRoute>
+                <UserProfile />
               </PrivateRoute>
             }
           />
