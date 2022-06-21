@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../hooks';
 import styles from '../styles/settings.module.css';
 import toast from 'react-hot-toast';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUser } from '../api';
 import { Loader } from '../components';
@@ -13,17 +13,13 @@ const UserProfile = () => {
   const [user, setUser] = useState({});
   // const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [updatingFriend, setUpdatingFriend] = useState(false);
 
   const { userId } = useParams();
 
   // const location = useLocation();
   // const user = location.state?.user;
   const navigate = useNavigate();
-
-  function checkFriendship() {
-    const friendIds = auth.user.friends?.map((friend) => friend.to_user._id);
-    return friendIds?.includes(userId);
-  }
 
   useEffect(() => {
     // setLoading(true);
@@ -38,7 +34,34 @@ const UserProfile = () => {
       setLoading(false);
     };
     fetchUser();
-  }, [userId]);
+  }, [userId, navigate]);
+
+  function checkFriendship() {
+    const friendIds = auth.user.friends.map((friend) => friend.to_user._id);
+    return friendIds.includes(userId);
+  }
+
+  const addFriend = async () => {
+    setUpdatingFriend(true);
+    const response = await auth.updateUserFriends(true, userId);
+    if (response.success) {
+      toast.success(`${user.name} added as friend`);
+    } else {
+      toast.error(`Cant add ${user.name} as friend`);
+    }
+    setUpdatingFriend(false);
+  };
+
+  const removeFriend = async () => {
+    setUpdatingFriend(true);
+    const response = await auth.updateUserFriends(false, userId);
+    if (response.success) {
+      toast.success(`${user.name} removed from friends`);
+    } else {
+      toast.error(`Cant remove ${user.name} from friends`);
+    }
+    setUpdatingFriend(false);
+  };
 
   if (loading) {
     return <Loader />;
@@ -65,9 +88,21 @@ const UserProfile = () => {
 
       <div className={styles.btnGrp}>
         {checkFriendship() ? (
-          <button className={`button ${styles.saveBtn}`}>Remove Friend</button>
+          <button
+            className={`button ${styles.saveBtn}`}
+            onClick={removeFriend}
+            disabled={updatingFriend}
+          >
+            {updatingFriend ? 'Removing..' : 'Remove Friend'}
+          </button>
         ) : (
-          <button className={`button ${styles.saveBtn}`}>Add Friend</button>
+          <button
+            className={`button ${styles.saveBtn}`}
+            onClick={addFriend}
+            disabled={updatingFriend}
+          >
+            {updatingFriend ? 'Adding..' : 'Add Friend'}
+          </button>
         )}
       </div>
     </div>

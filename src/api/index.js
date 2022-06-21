@@ -38,7 +38,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   try {
     const response = await fetch(url, config);
     const data = await response.json();
-    console.log(data);
+    console.log('Fetched data', data);
     if (data.success) {
       return {
         data: data.data,
@@ -87,5 +87,23 @@ export const editUser = (id, name, password, confirm_password) => {
 export const getUser = (id) => {
   return customFetch(API_URLS.userInfo(id), {
     method: 'GET',
+  });
+};
+
+export const getFriends = () => {
+  return customFetch(API_URLS.friends(), {
+    method: 'GET',
+  });
+};
+
+export const createFriendship = (id) => {
+  return customFetch(API_URLS.createFriendship(id), {
+    method: 'POST',
+  });
+};
+
+export const removeFriendship = (id) => {
+  return customFetch(API_URLS.removeFriend(id), {
+    method: 'POST',
   });
 };

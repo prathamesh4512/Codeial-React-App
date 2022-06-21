@@ -8,6 +8,7 @@ const initialState = {
   loading: true,
   signup: () => {},
   editUser: () => {},
+  updateUserFriends: () => {},
 };
 
 export const AuthContext = createContext(initialState);
