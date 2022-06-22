@@ -3,5 +3,6 @@ export * from './Loader';
 export * from './Comment';
 export * from './Navbar';
 export * from './FriendsList';
+export * from './CreatePost';
 
 // export {App}

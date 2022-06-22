@@ -56,7 +56,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   }
 };
 
-export const getPosts = (page = 1, limit = 5) => {
+export const getPosts = (page = 1, limit = 10) => {
   return customFetch(API_URLS.posts(page, limit), {
     method: 'GET',
   });
@@ -105,5 +105,12 @@ export const createFriendship = (id) => {
 export const removeFriendship = (id) => {
   return customFetch(API_URLS.removeFriend(id), {
     method: 'POST',
+  });
+};
+
+export const createPost = (post) => {
+  return customFetch(API_URLS.createPost(), {
+    method: 'POST',
+    body: { content: post },
   });
 };
