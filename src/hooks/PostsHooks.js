@@ -1,5 +1,5 @@
 import { PostsContext } from '../providers';
-import { getPosts, createPost } from '../api';
+import { getPosts, createPost, createComment } from '../api';
 import { useState, useEffect, useContext } from 'react';
 
 export const usePosts = () => {
@@ -31,9 +31,66 @@ export const useProvidePosts = () => {
     }
   };
 
+  const addComment = async (comment, post_id) => {
+    const response = await createComment(comment, post_id);
+    if (response.success) {
+      let newPosts = posts.map((post) => {
+        if (post._id === post_id) {
+          return {
+            ...post,
+            comments: [...post.comments, response.data.comment],
+          };
+        }
+        return post;
+      });
+      setPosts(newPosts);
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  };
+
+  const toggleLikePost = (deleted, id) => {
+    if (deleted) {
+      let newPosts = posts.map((post) => {
+        if (post._id === id) {
+          post.likes.pop();
+          return post;
+        }
+        return post;
+      });
+      setPosts(newPosts);
+    } else {
+      let newPosts = posts.map((post) => {
+        if (post._id === id) {
+          post.likes.push({});
+          return post;
+        }
+        return post;
+      });
+      setPosts(newPosts);
+    }
+  };
+
+  const toggleLikeComment = (newComments, id) => {
+    const newPosts = posts.map((post) => {
+      if (post._id === id) {
+        return {
+          ...post,
+          comments: newComments,
+        };
+      }
+      return post;
+    });
+    setPosts(newPosts);
+  };
+
   return {
     posts,
     loading,
     addPostToState,
+    addComment,
+    toggleLikePost,
+    toggleLikeComment,
   };
 };
