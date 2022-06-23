@@ -51,25 +51,25 @@ export const useProvidePosts = () => {
   };
 
   const toggleLikePost = (deleted, id) => {
+    let newPosts = [];
     if (deleted) {
-      let newPosts = posts.map((post) => {
+      newPosts = posts.map((post) => {
         if (post._id === id) {
           post.likes.pop();
           return post;
         }
         return post;
       });
-      setPosts(newPosts);
     } else {
-      let newPosts = posts.map((post) => {
+      newPosts = posts.map((post) => {
         if (post._id === id) {
           post.likes.push({});
           return post;
         }
         return post;
       });
-      setPosts(newPosts);
     }
+    setPosts(newPosts);
   };
 
   const toggleLikeComment = (newComments, id) => {

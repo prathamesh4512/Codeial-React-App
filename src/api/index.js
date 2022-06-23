@@ -127,3 +127,9 @@ export const toggleLike = (itemId, itemType) => {
     method: 'POST',
   });
 };
+
+export const getusersByName = (name) => {
+  return customFetch(API_URLS.searchUsers(name), {
+    method: 'GET',
+  });
+};

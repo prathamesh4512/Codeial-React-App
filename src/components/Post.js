@@ -46,7 +46,6 @@ export const Post = ({ post }) => {
       newComments = post.comments.map((comment) => {
         if (comment._id === id) {
           comment.likes.pop();
-          return comment;
         }
         return comment;
       });
@@ -54,7 +53,6 @@ export const Post = ({ post }) => {
       newComments = post.comments.map((comment) => {
         if (comment._id === id) {
           comment.likes.push({});
-          return comment;
         }
         return comment;
       });
