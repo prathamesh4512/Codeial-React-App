@@ -56,7 +56,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   }
 };
 
-export const getPosts = (page = 1, limit = 10) => {
+export const getPosts = (page = 1, limit = 30) => {
   return customFetch(API_URLS.posts(page, limit), {
     method: 'GET',
   });
@@ -119,6 +119,12 @@ export const createComment = (content, post_id) => {
   return customFetch(API_URLS.comment(), {
     method: 'POST',
     body: { content, post_id },
+  });
+};
+
+export const deleteComment = (commentId) => {
+  return customFetch(API_URLS.deleteComment(commentId), {
+    method: 'DELETE',
   });
 };
 

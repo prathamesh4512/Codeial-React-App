@@ -7,6 +7,7 @@ import styles from '../styles/navbar.module.css';
 import { useEffect } from 'react';
 
 import debounce from 'lodash.debounce';
+import { useRef } from 'react';
 
 export const Navbar = () => {
   const [searchText, setSearchText] = useState('');
@@ -22,6 +23,27 @@ export const Navbar = () => {
   //     }
   //   }
   // };
+
+  const searchResultBox = useRef(null);
+  const dropDownBox = useRef(null);
+
+  useOutsideHandler(searchResultBox); //for search results
+  useOutsideHandler(dropDownBox); // for drop down box
+
+  function useOutsideHandler(ref) {
+    useEffect(() => {
+      function handleOutsideClick(e) {
+        console.log('mousedown');
+        if (ref.current && !ref.current.contains(e.target)) setResults([]);
+      }
+
+      document.addEventListener('mousedown', handleOutsideClick);
+
+      return () => {
+        document.removeEventListener('mousedown', handleOutsideClick);
+      };
+    }, [ref]);
+  }
 
   useEffect(() => {
     const getusersByName = debounce(async () => {
@@ -65,7 +87,7 @@ export const Navbar = () => {
         />
 
         {results.length > 0 && (
-          <div className={styles.searchResults}>
+          <div className={styles.searchResults} ref={searchResultBox}>
             <ul>
               {results.map((user) => (
                 <li

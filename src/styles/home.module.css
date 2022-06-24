@@ -113,6 +113,11 @@
   font-size: 12px;
   line-height: 16px;
   color: #757575;
+  text-decoration: none;
+}
+
+.postCommentHeader .postCommentAuthor:hover {
+  text-decoration: underline;
 }
 .postCommentHeader .postCommentTime {
   font-size: 12px;

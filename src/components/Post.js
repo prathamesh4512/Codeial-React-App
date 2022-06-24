@@ -40,25 +40,32 @@ export const Post = ({ post }) => {
     }
   };
 
-  const toggleLikeComment = (deleted, id) => {
-    let newComments = [];
-    if (deleted) {
-      newComments = post.comments.map((comment) => {
-        if (comment._id === id) {
-          comment.likes.pop();
-        }
-        return comment;
-      });
-    } else {
-      newComments = post.comments.map((comment) => {
-        if (comment._id === id) {
-          comment.likes.push({});
-        }
-        return comment;
-      });
-    }
-    posts.toggleLikeComment(newComments, post._id);
-  };
+  // const toggleLikeComment = (deleted, id) => {
+  //   let newComments = [];
+  //   if (deleted) {
+  //     newComments = post.comments.map((comment) => {
+  //       if (comment._id === id) {
+  //         comment.likes.pop();
+  //       }
+  //       return comment;
+  //     });
+  //   } else {
+  //     newComments = post.comments.map((comment) => {
+  //       if (comment._id === id) {
+  //         comment.likes.push({});
+  //       }
+  //       return comment;
+  //     });
+  //   }
+  //   posts.toggleLikeComment(newComments, post._id);
+  // };
+
+  // const deleteComment = (commentId) => {
+  //   let newComments = post.comments.filter(
+  //     (comment) => comment._id !== commentId
+  //   );
+  //   posts.deleteComment(newComments, post._id);
+  // };
 
   return (
     <div className={styles.postWrapper} key={`post-${post._id}`}>
@@ -101,7 +108,7 @@ export const Post = ({ post }) => {
         {auth.user && (
           <div className={styles.postCommentBox}>
             <input
-              placeholder="Start typing a comment"
+              placeholder="Add comment..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               onKeyDown={addComment}
@@ -114,7 +121,8 @@ export const Post = ({ post }) => {
           {post.comments.map((comment) => (
             <Comment
               comment={comment}
-              toggleLikeComment={toggleLikeComment}
+              // toggleLikeComment={toggleLikeComment}
+              // deleteCommentfromPost={deleteComment}
               key={comment._id}
             />
           ))}

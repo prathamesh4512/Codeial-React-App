@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import styles from '../styles/home.module.css';
 import toast from 'react-hot-toast';
-// import { useAuth } from '../hooks';
+import { useAuth } from '../hooks';
 // import { createPost } from '../api';
 import { usePosts } from '../hooks';
 
 export const CreatePost = (props) => {
-  //   const auth = useAuth();
+  const auth = useAuth();
   const posts = usePosts();
   const [post, setPost] = useState('');
   const [adding, setAdding] = useState(false);
@@ -27,6 +27,8 @@ export const CreatePost = (props) => {
 
     setAdding(false);
   };
+
+  // if (!auth.user) return;
 
   return (
     <div className={styles.createPost}>

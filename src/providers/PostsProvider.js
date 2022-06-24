@@ -8,6 +8,7 @@ const initialState = {
   addComment: () => {},
   toggleLikePost: () => {},
   toggleLikeComment: () => {},
+  deleteComment: () => {},
 };
 
 export const PostsContext = createContext(initialState);

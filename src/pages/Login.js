@@ -27,7 +27,7 @@ const Login = () => {
   }
 
   if (auth.user) {
-    return <Navigate to="/" replace></Navigate>;
+    return <Navigate to="/" replace />;
   }
 
   return (

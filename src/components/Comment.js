@@ -1,20 +1,32 @@
 import PropTypes from 'prop-types';
-import { toggleLike } from '../api';
-// import { useAuth, usePosts } from '../hooks';
-import { useNavigate } from 'react-router-dom';
+import { toggleLike, deleteComment as removeComment } from '../api';
+import { usePosts } from '../hooks';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import styles from '../styles/home.module.css';
 
-export const Comment = ({ comment, toggleLikeComment }) => {
+export const Comment = (props) => {
   // const auth = useAuth();
-  // const posts = usePosts();
+  const posts = usePosts();
   const navigate = useNavigate();
+
+  const { comment } = props;
 
   const likeComment = async () => {
     const response = await toggleLike(comment._id, 'Comment');
     if (response.success) {
-      toggleLikeComment(response.data.deleted, comment._id);
+      posts.toggleLikeComment(response.data.deleted, comment.post, comment._id);
+    } else {
+      toast.error('Please login to like comment');
+      navigate('/login');
+    }
+  };
+
+  const deleteComment = async () => {
+    const response = await removeComment(comment._id);
+    if (response.success) {
+      posts.deleteComment(comment._id, comment.post);
     } else {
       toast.error('Please login to like comment');
       navigate('/login');
@@ -24,7 +36,12 @@ export const Comment = ({ comment, toggleLikeComment }) => {
   return (
     <div className={styles.postCommentsItem}>
       <div className={styles.postCommentHeader}>
-        <span className={styles.postCommentAuthor}>{comment.user.name}</span>
+        <Link
+          to={`/users/${comment.user._id}`}
+          className={styles.postCommentAuthor}
+        >
+          {comment.user.name}
+        </Link>
         <span className={styles.postCommentTime}>a minute ago</span>
         <div className={styles.postActions}>
           <div className={styles.postLike} onClick={likeComment}>
@@ -33,6 +50,12 @@ export const Comment = ({ comment, toggleLikeComment }) => {
               alt="likes-icon"
             />
             <span>{comment.likes.length}</span>
+          </div>
+          <div className={styles.postLike} onClick={deleteComment}>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
+              alt=""
+            />
           </div>
         </div>
         {/* <span className={styles.postCommentLikes}>{comment.likes.length}</span> */}

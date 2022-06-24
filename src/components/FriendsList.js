@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const FriendsList = () => {
   const auth = useAuth();
+  // if (!auth.user) return;
   const { friends = [] } = auth.user;
   return (
     <div className={styles.friendsList}>

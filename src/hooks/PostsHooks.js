@@ -51,30 +51,40 @@ export const useProvidePosts = () => {
   };
 
   const toggleLikePost = (deleted, id) => {
-    let newPosts = [];
-    if (deleted) {
-      newPosts = posts.map((post) => {
-        if (post._id === id) {
-          post.likes.pop();
-          return post;
-        }
-        return post;
-      });
-    } else {
-      newPosts = posts.map((post) => {
-        if (post._id === id) {
-          post.likes.push({});
-          return post;
-        }
-        return post;
-      });
-    }
+    let newPosts = posts.map((post) => {
+      if (post._id === id) {
+        deleted ? post.likes.pop() : post.likes.push({});
+      }
+      return post;
+    });
     setPosts(newPosts);
   };
 
-  const toggleLikeComment = (newComments, id) => {
+  const toggleLikeComment = (like, postId, commentId) => {
+    let newPosts = posts.map((post) => {
+      if (post._id === postId) {
+        let newComments = post.comments.map((comment) => {
+          if (comment._id === commentId) {
+            like ? comment.likes.pop() : comment.likes.push({});
+          }
+          return comment;
+        });
+        return {
+          ...post,
+          comments: newComments,
+        };
+      }
+      return post;
+    });
+    setPosts(newPosts);
+  };
+
+  const deleteComment = (commentId, postId) => {
     const newPosts = posts.map((post) => {
-      if (post._id === id) {
+      if (post._id === postId) {
+        const newComments = post.comments.filter(
+          (comment) => comment._id !== commentId
+        );
         return {
           ...post,
           comments: newComments,
@@ -92,5 +102,6 @@ export const useProvidePosts = () => {
     addComment,
     toggleLikePost,
     toggleLikeComment,
+    deleteComment,
   };
 };
