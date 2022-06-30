@@ -46,29 +46,42 @@ export const useProvideAuth = () => {
     getUser();
   }, []);
 
+  const settingUserFriends = async () => {
+    const response = await getFriends();
+    let friends = [];
+    if (response.success) {
+      friends = response.data.friends;
+    }
+    return friends;
+  };
+
   const login = async (email, password) => {
     // setLoading(true);
     const response = await userLogin(email, password);
     if (response.success) {
-      const user = response.data.user;
       setItemInLocalStorage(
         LOCALSTORAGE_TOKEN_KEY,
         response.data.token ? response.data.token : null
       );
-      const settingUserFriends = async () => {
-        const response = await getFriends();
-        // let friends=[];
-        if (response.success) {
-          let friends = response.data.friends;
-          setUser({
-            ...user,
-            friends: friends,
-          });
-        }
-        // setLoading(false);
-      };
+      // const settingUserFriends = async () => {
+      //   const response = await getFriends();
+      //   // let friends=[];
+      //   if (response.success) {
+      //     let friends = response.data.friends;
+      //     setUser({
+      //       ...user,
+      //       friends: friends,
+      //     });
+      //   }
+      //   // setLoading(false);
+      // };
       // setLoading(false);
-      settingUserFriends();
+      let friends = await settingUserFriends();
+
+      setUser({
+        ...response.data.user,
+        friends: friends,
+      });
       return { success: true };
     } else
       return {
@@ -100,20 +113,24 @@ export const useProvideAuth = () => {
         LOCALSTORAGE_TOKEN_KEY,
         response.data.token ? response.data.token : null
       );
-      const settingUserFriends = async () => {
-        const response = await getFriends();
-        // let friends=[];
-        if (response.success) {
-          let friends = response.data.friends;
-          setUser({
-            ...user,
-            friends: friends,
-          });
-        }
-        // setLoading(false);
-      };
+      // const settingUserFriends = async () => {
+      //   const response = await getFriends();
+      //   // let friends=[];
+      //   if (response.success) {
+      //     let friends = response.data.friends;
+      //     setUser({
+      //       ...user,
+      //       friends: friends,
+      //     });
+      //   }
+      //   // setLoading(false);
+      // };
       // setLoading(false);
-      settingUserFriends();
+      let friends = await settingUserFriends();
+      setUser({
+        ...user,
+        friends: friends,
+      });
       return { success: true };
     } else
       return {

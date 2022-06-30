@@ -39,6 +39,9 @@ const UserProfile = () => {
   function checkFriendship() {
     const friendIds = auth.user.friends.map((friend) => friend.to_user._id);
     return friendIds.includes(userId);
+
+    // const friend= auth.user.friends.find(friend=>friend.to_user._id);
+    // return Boolean(friend);
   }
 
   const addFriend = async () => {
