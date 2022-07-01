@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { toggleLike, deleteComment as removeComment } from '../api';
-import { usePosts } from '../hooks';
+import { usePosts, useAuth } from '../hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import styles from '../styles/home.module.css';
 
 export const Comment = (props) => {
-  // const auth = useAuth();
+  const auth = useAuth();
   const posts = usePosts();
   const navigate = useNavigate();
 
@@ -43,21 +43,25 @@ export const Comment = (props) => {
           {comment.user.name}
         </Link>
         <span className={styles.postCommentTime}>a minute ago</span>
-        <div className={styles.postActions}>
-          <div className={styles.postLike} onClick={likeComment}>
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/633/633759.png"
-              alt="likes-icon"
-            />
-            <span>{comment.likes.length}</span>
+        {auth.user && (
+          <div className={styles.postActions}>
+            <div className={styles.postLike} onClick={likeComment}>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/633/633759.png"
+                alt="likes-icon"
+              />
+              <span>{comment.likes.length}</span>
+            </div>
+            {auth.user._id === comment.user._id && (
+              <div className={styles.postLike} onClick={deleteComment}>
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
+                  alt=""
+                />
+              </div>
+            )}
           </div>
-          <div className={styles.postLike} onClick={deleteComment}>
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
-              alt=""
-            />
-          </div>
-        </div>
+        )}
         {/* <span className={styles.postCommentLikes}>{comment.likes.length}</span> */}
       </div>
 
