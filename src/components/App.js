@@ -27,7 +27,7 @@ export function App() {
   // const [loading,setLoading]= useState(true);
   // const [posts, setPosts] = useState([]);
   const auth = useAuth();
-  console.log('auth', auth);
+  // console.log('auth', auth);
 
   //In useEffect we cant directly call async fn
   // useEffect(() => {

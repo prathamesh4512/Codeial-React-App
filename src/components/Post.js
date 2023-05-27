@@ -31,6 +31,7 @@ export const Post = ({ post }) => {
   };
 
   const likePost = async () => {
+    if(!auth?.user) return toast.error('Please login to like post');
     const response = await toggleLike(post._id, 'Post');
     if (response.success) {
       posts.toggleLikePost(response.data.deleted, post._id);

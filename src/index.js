@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
+import store from './store';
+import { Provider } from 'react-redux';
+import { AuthProvider, PostsProvider } from './providers';
 import './styles/index.css';
 import { App } from './components';
-import { Toaster } from 'react-hot-toast';
-import { AuthProvider, PostsProvider } from './providers';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider store={store}>
   <React.StrictMode>
     <AuthProvider>
       <PostsProvider>
@@ -34,4 +37,5 @@ root.render(
       }}
     />
   </React.StrictMode>
+  </Provider>
 );

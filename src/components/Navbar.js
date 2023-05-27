@@ -33,7 +33,6 @@ export const Navbar = () => {
   function useOutsideHandler(ref) {
     useEffect(() => {
       function handleOutsideClick(e) {
-        console.log('mousedown');
         if (ref.current && !ref.current.contains(e.target)) setResults([]);
       }
 

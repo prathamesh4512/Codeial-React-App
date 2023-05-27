@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import styles from '../styles/home.module.css';
 import toast from 'react-hot-toast';
-import { useAuth } from '../hooks';
+// import { useAuth } from '../hooks';
 // import { createPost } from '../api';
 import { usePosts } from '../hooks';
 
 export const CreatePost = (props) => {
-  const auth = useAuth();
+  // const auth = useAuth();
   const posts = usePosts();
   const [post, setPost] = useState('');
   const [adding, setAdding] = useState(false);
 
   const addPost = async () => {
     if (!post) return toast.error('Cant create empty Post');
-
     setAdding(true);
 
     const response = await posts.addPostToState(post);
