@@ -1,7 +1,7 @@
 // import { useEffect, useState } from 'react';
 // import { getPosts } from '../api';
 import { Home, Login, Signup, Settings, UserProfile } from '../pages';
-import { Loader, Navbar } from './';
+import { Loader, Navbar } from '.';
 import {
   BrowserRouter as Router,
   Routes,
