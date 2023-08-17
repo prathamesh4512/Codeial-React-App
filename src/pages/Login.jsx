@@ -18,7 +18,7 @@ const Login = () => {
     setLoggingIn(true);
     const response = await auth.login(email, password);
     if (response.success) {
-      navigate('/');
+      navigate('/Codeial-React-App');
       toast.success('Successfully Logged In');
     } else {
       toast.error('Invalid Password or Email');
@@ -27,7 +27,7 @@ const Login = () => {
   }
 
   if (auth.user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/Codeial-React-App" replace />;
   }
 
   const guestLogin = () => {

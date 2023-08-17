@@ -32,7 +32,7 @@ const Signup = () => {
   }
 
   if (auth.user) {
-    return <Navigate to="/" replace></Navigate>;
+    return <Navigate to="/Codeial-React-App" replace></Navigate>;
   }
 
   return (
