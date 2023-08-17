@@ -211,6 +211,14 @@
 .friendsCtn{
   height: calc(50vh - 60px);
   overflow-y: auto;
+  &::-webkit-scrollbar{
+    background-color: transparent;
+    width: 5px;
+    };
+  &::-webkit-scrollbar-thumb{
+    background-color: lightgray;
+    border-radius: 5px;
+  } 
 }
 
 .friendsList .header {
