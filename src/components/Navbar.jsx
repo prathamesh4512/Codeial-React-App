@@ -83,7 +83,7 @@ export const Navbar = () => {
   return (
     <div className={styles.nav}>
       <div className={styles.leftDiv}>
-        <Link to="/">
+        <Link to="/Codeial-React-App">
           <img
             alt=""
             src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
