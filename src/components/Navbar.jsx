@@ -1,5 +1,5 @@
 import { useCallback, useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { getusersByName as fetchUsers } from '../api';
 import styles from '../styles/navbar.module.css';
@@ -10,6 +10,7 @@ export const Navbar = () => {
 
   const [results, setResults] = useState([]);
   const [showResults,setShowResults] = useState(true);
+  const navigate = useNavigate();
 
   // const getusersByName = async (e) => {
   //   if (e.key === 'Enter') {
@@ -73,6 +74,11 @@ export const Navbar = () => {
   //   getusersByName();
   // }, [searchText]);
 
+  const showUserProfile = (link) =>{
+    navigate(link);
+    setShowResults(false);
+  }
+
   const auth = useAuth();
   return (
     <div className={styles.nav}>
@@ -107,15 +113,15 @@ export const Navbar = () => {
                 <li
                   className={styles.searchResultsRow}
                   key={`user-${user._id}`}
-                  onClick={()=>setShowResults(false)}
+                  onClick={()=>showUserProfile(`/users/${user._id}`)}
                 >
-                  <Link to={`/users/${user._id}`}>
+                  {/* <Link to={`/users/${user._id}`}> */}
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                       alt=""
                     />
                     <span>{user.name}</span>
-                  </Link>
+                  {/* </Link> */}
                 </li>
               ))}
             </ul>
