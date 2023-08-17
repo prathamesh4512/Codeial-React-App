@@ -44,7 +44,7 @@ export const Comment = (props) => {
         </Link>
         <span className={styles.postCommentTime}>a minute ago</span>
         {auth.user && (
-          <div className={styles.postActions}>
+          <div className={styles.postActionsNew}>
             <div className={styles.postLike} onClick={likeComment}>
               <img
                 src="https://cdn-icons-png.flaticon.com/512/633/633759.png"

@@ -1,18 +1,15 @@
-import { useState } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { getusersByName as fetchUsers } from '../api';
-
 import styles from '../styles/navbar.module.css';
-import { useEffect } from 'react';
-
 import debounce from 'lodash.debounce';
-import { useRef } from 'react';
 
 export const Navbar = () => {
   const [searchText, setSearchText] = useState('');
 
   const [results, setResults] = useState([]);
+  const [showResults,setShowResults] = useState(true);
 
   // const getusersByName = async (e) => {
   //   if (e.key === 'Enter') {
@@ -33,7 +30,7 @@ export const Navbar = () => {
   function useOutsideHandler(ref) {
     useEffect(() => {
       function handleOutsideClick(e) {
-        if (ref.current && !ref.current.contains(e.target)) setResults([]);
+        if (ref.current && !ref.current.contains(e.target)) setShowResults(false);
       }
 
       document.addEventListener('mousedown', handleOutsideClick);
@@ -44,20 +41,37 @@ export const Navbar = () => {
     }, [ref]);
   }
 
-  useEffect(() => {
-    const getusersByName = debounce(async () => {
-      if (searchText.length > 2) {
-        const response = await fetchUsers(searchText);
-        if (response.success) {
-          setResults(response.data.users);
-        }
-      } else {
-        setResults([]);
-      }
-    }, 500);
+  const handleSearch = (value) =>{
+    setShowResults(true);
+    setSearchText(value);
+    getUserByName(value);
+  }
 
-    getusersByName();
-  }, [searchText]);
+  const getUserByName = useCallback(debounce(async (value) => {
+    if (value.length > 2) {
+      const response = await fetchUsers(value);
+      if (response.success) {
+        setResults(response.data.users);
+      }
+    } else {
+      setResults([]);
+    }
+  }, 500),[])
+
+  // useEffect(() => {
+  //   const getusersByName = debounce(async () => {
+  //     if (searchText.length > 2) {
+  //       const response = await fetchUsers(searchText);
+  //       if (response.success) {
+  //         setResults(response.data.users);
+  //       }
+  //     } else {
+  //       setResults([]);
+  //     }
+  //   }, 500);
+
+  //   getusersByName();
+  // }, [searchText]);
 
   const auth = useAuth();
   return (
@@ -71,7 +85,7 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      <div className={styles.searchContainer}>
+    {auth.user &&  <div className={styles.searchContainer}>
         <img
           className={styles.searchIcon}
           src="https://cdn-icons-png.flaticon.com/512/54/54481.png"
@@ -81,17 +95,19 @@ export const Navbar = () => {
           type="text"
           placeholder="Search User"
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          onClick={()=>setShowResults(true)}
+          onChange={(e) => handleSearch(e.target.value)}
           // onKeyDown={getusersByName}
         />
 
-        {results.length > 0 && (
+        {(showResults && results.length > 0) && (
           <div className={styles.searchResults} ref={searchResultBox}>
             <ul>
               {results.map((user) => (
                 <li
                   className={styles.searchResultsRow}
                   key={`user-${user._id}`}
+                  onClick={()=>setShowResults(false)}
                 >
                   <Link to={`/users/${user._id}`}>
                     <img
@@ -105,7 +121,7 @@ export const Navbar = () => {
             </ul>
           </div>
         )}
-      </div>
+      </div>}
 
       <div className={styles.rightNav}>
         {auth.user && (

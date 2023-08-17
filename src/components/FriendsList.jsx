@@ -8,8 +8,8 @@ export const FriendsList = () => {
   const { friends = [] } = auth.user;
   return (
     <div className={styles.friendsList}>
-      <div className={styles.header}>Friends</div>
-
+      <h2 className={styles.header}>Friends List</h2>
+      <div className={styles.friendsCtn}>
       {friends.length === 0 ? (
         <div className={styles.noFriends}>No Friends Found</div>
       ) : (
@@ -28,8 +28,11 @@ export const FriendsList = () => {
               <div className={styles.friendsName}>{friend.to_user.name}</div>
             </Link>
           </div>
-        ))
-      )}
+        )) 
+      )
+      }
+      </div>
+    
     </div>
   );
 };

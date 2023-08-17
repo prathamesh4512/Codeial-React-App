@@ -7,6 +7,7 @@ import { useAuth, usePosts } from '../hooks';
 import toast from 'react-hot-toast';
 import { toggleLike } from '../api';
 import { useNavigate } from 'react-router-dom';
+// import { FaRegThumbsUp } from "react-icons/fa";
 
 export const Post = ({ post }) => {
   const posts = usePosts();
@@ -95,6 +96,7 @@ export const Post = ({ post }) => {
               src="https://cdn-icons-png.flaticon.com/512/633/633759.png"
               alt="likes-icon"
             />
+            {/* <FaRegThumbsUp style={{fontSize:'18px'}}/> */}
             <span>{post.likes.length}</span>
           </div>
 

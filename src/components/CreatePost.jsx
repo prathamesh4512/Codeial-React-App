@@ -12,7 +12,7 @@ export const CreatePost = (props) => {
   const [adding, setAdding] = useState(false);
 
   const addPost = async () => {
-    if (!post) return toast.error('Cant create empty Post');
+    if (!post) return toast.error('Cant Create Empty Post');
     setAdding(true);
 
     const response = await posts.addPostToState(post);

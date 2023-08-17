@@ -100,7 +100,7 @@ export const useProvideAuth = () => {
     if (response.success) {
       return { success: true };
     } else {
-      return { success: false, messaage: response.message };
+      return { success: false, message: response.message  };
     }
   };
 
@@ -135,7 +135,7 @@ export const useProvideAuth = () => {
     } else
       return {
         success: false,
-        messaage: response.message,
+        message: response.message,
       };
 
     // if (response.success) {
