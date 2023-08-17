@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Codeial-React-App/static/css/main.74d3bf66.css",
-    "main.js": "/Codeial-React-App/static/js/main.1ce1965e.js",
+    "main.js": "/Codeial-React-App/static/js/main.b49e49da.js",
     "index.html": "/Codeial-React-App/index.html",
     "main.74d3bf66.css.map": "/Codeial-React-App/static/css/main.74d3bf66.css.map",
-    "main.1ce1965e.js.map": "/Codeial-React-App/static/js/main.1ce1965e.js.map"
+    "main.b49e49da.js.map": "/Codeial-React-App/static/js/main.b49e49da.js.map"
   },
   "entrypoints": [
     "static/css/main.74d3bf66.css",
-    "static/js/main.1ce1965e.js"
+    "static/js/main.b49e49da.js"
   ]
 }
