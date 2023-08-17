@@ -30,6 +30,12 @@ const Login = () => {
     return <Navigate to="/" replace />;
   }
 
+  const guestLogin = () => {
+    setEmail('guest@gmail.com');
+    setPassword('17Aug')
+  }
+
+
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
       <span className={styles.loginSignupHeader}>Log In</span>
@@ -54,6 +60,9 @@ const Login = () => {
       <div className={styles.field}>
         <button disabled={loggingIn}>
           {loggingIn ? 'Logging In...' : 'Log In'}
+        </button>
+        <button disabled={loggingIn} className={styles.guestLogin} onClick={guestLogin}>
+          {loggingIn ? 'Logging In...' : 'Guest Log In'}
         </button>
       </div>
     </form>

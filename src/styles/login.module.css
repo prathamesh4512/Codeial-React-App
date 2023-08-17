@@ -1,7 +1,9 @@
 .loginSignupHeader {
   font-weight: 600;
   font-size: 30px;
-  color: #ef7917;
+  /* color: #ef7917; */
+  color: #F8A841;
+
 }
 .loginForm {
   background-color: #fff;
@@ -35,13 +37,18 @@
 .field button {
   width: 100%;
   margin-top: 20px;
-  background: #ef7917;
+  /* background: #ef7917; */
+  background: #F8A841;
   border-radius: 2px;
   color: #fff;
   font-size: 20px;
   padding: 9px;
   border: none;
   outline: none;
+  border-radius: 20px;
+}
+.field .guestLogin{
+  background: #208BC2;
 }
 .field button:hover {
   cursor: pointer;

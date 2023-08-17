@@ -139,7 +139,7 @@ export const Navbar = () => {
                 className={styles.userDp}
               />
             </Link>
-            <span>{auth.user.name}</span>
+            <span className={styles.userName}>{auth.user.name}</span>
           </div>
         )}
 
@@ -147,12 +147,12 @@ export const Navbar = () => {
           <ul>
             {auth.user ? (
               <li>
-                <button onClick={auth.logout}>Log out</button>
+                <button className={styles.logoutBtn} onClick={auth.logout}>Log Out</button>
               </li>
             ) : (
               <>
                 <li>
-                  <Link to="/login">Log in</Link>
+                  <Link to="/login">Log In</Link>
                 </li>
                 <li>
                   <Link to="/signup">Sign Up</Link>
