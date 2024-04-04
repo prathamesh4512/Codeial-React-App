@@ -49,7 +49,7 @@ export function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar/>
         <Routes>
           <Route path="/Codeial-React-App" element={<Home />} />
           {/* <Route path="/" element={<Home />} /> */}
